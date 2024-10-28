@@ -197,18 +197,18 @@ public class CardGame {
         System.out.println(currentPlayer.toString()); // Display player hand and active Pokémon
 
         System.out.println("Select an action:");
-        System.out.println("0: Use Pokémon Move");
-        System.out.println("1: Use Trainer Card");
+        System.out.println("1: Use Pokémon Move");
+        System.out.println("2: Use Trainer Card");
 
         int actionChoice = scanner.nextInt();
-        if (actionChoice == 0) {
+        if (actionChoice == 1) {
             if (currentPlayer.hasActivePokemon()) {
                 System.out.println("Select a move for " + currentPlayer.getActivePokemon().getName() + ":");
                 Move[] moves = currentPlayer.getActivePokemon().getMoves();
                 for (int i = 0; i < moves.length; i++) {
-                    System.out.println(i + ": " + moves[i]);
+                    System.out.println(i+1 + ": " + moves[i]);
                 }
-                int moveIndex = scanner.nextInt();
+                int moveIndex = scanner.nextInt()-1;
                 if (moveIndex >= 0 && moveIndex < moves.length) {
                     Move selectedMove = moves[moveIndex];
                     opponent.getActivePokemon().takeDamage(selectedMove.getDamage());
@@ -221,15 +221,15 @@ public class CardGame {
             } else {
                 System.out.println(currentPlayer.getName() + " has no active Pokémon left!");
             }
-        } else if (actionChoice == 1) {
+        } else if (actionChoice == 2) {
             System.out.println("Select a Trainer card to use:");
             for (int i = 0; i < currentPlayer.getHand().size(); i++) {
                 Card card = currentPlayer.getHand().get(i);
                 if (card instanceof Trainer) {
-                    System.out.println(i + ": " + card);
+                    System.out.println(i+1 + ": " + card);
                 }
             }
-            int trainerIndex = scanner.nextInt();
+            int trainerIndex = scanner.nextInt()-1;
             currentPlayer.useTrainerCard(trainerIndex, this);
         } else {
             System.out.println("Invalid action selection.");
